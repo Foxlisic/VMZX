@@ -1,5 +1,5 @@
 vmzx
-bas2tap
+/bas2tap/bas2tap
 /snap/*.z80
 /*.tap
 /*.sna
