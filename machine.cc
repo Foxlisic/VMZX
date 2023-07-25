@@ -91,6 +91,14 @@ void Z80Spectrum::args(int argc, char** argv) {
                 case 'a': autostart = 1; break;
                 case 'x': sdl_disable_sound = 1; break;
 
+                // Подгрузка кастомного рома (-r0 128k, -r1 48k, -r4 trdos)
+                case 'r':
+
+                    if (argv[u][2] == '0') loadrom(argv[u+1], 0);
+                    if (argv[u][2] == '1') loadrom(argv[u+1], 1);
+                    if (argv[u][2] == '4') loadrom(argv[u+1], 4);
+                    break;
+
                 // Файл для записи видео
                 case 'o':
 
@@ -285,6 +293,7 @@ void Z80Spectrum::keyb(int press, SDL_KeyboardEvent* eventkey) {
 
                         ds_viewmode = 0;
                         ds_cursor   = ds_start = pc;
+                        halted      = 0;
 
                     } else {
 
