@@ -18,7 +18,7 @@ int Z80Spectrum::z80file_bankmap(int mode, int bank) {
                 exit(1);
         }
     }
-    
+
     return 0;
 }
 
@@ -50,7 +50,7 @@ void Z80Spectrum::loadbin(const char* filename, int address) {
     fclose(fp);
 }
 
-// Загрузка базового ROM
+// Загрузка кастомного ROM в память
 void Z80Spectrum::loadrom(const char* filename, int bank) {
 
     FILE* fp = fopen(filename, "rb");

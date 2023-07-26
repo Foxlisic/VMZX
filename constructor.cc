@@ -70,9 +70,13 @@ Z80Spectrum::Z80Spectrum() {
         lookupfb[y] = 0x4000 + 32*((y & 0x38)>>3) + 256*(y&7) + 2048*(y>>6);
     }
 
-    loadrom("48k.rom",   1);
-    loadrom("128k.rom",  0);
-    loadrom("trdos.rom", 4);
+    // Загрузка ROM
+    for (int i = 0; i < 16384; i++) {
+
+        rom[i]       = rom128k[i];      // 0 BANK
+        rom[i+16384] = rom48k[i];       // 1 BANK
+        trdos[i]     = trdosrom[i];     // 4 BANK
+    }
 
     // Коррекция уровня
     for (int _f = 0; _f < 16; _f++) {

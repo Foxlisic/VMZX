@@ -13,6 +13,10 @@
  * <file>.(z80|tap|sna)
  */
 
+#include "rom48k.h"
+#include "rom128k.h"
+#include "romtrdos.h"
+
 #include "z80.cc"
 #include "machine.h"
 #include "machine.cc"
