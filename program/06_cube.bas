@@ -1,25 +1,30 @@
-5 CLS: LET h=75: LET cx=0: LET cy=-1.5: LET cz=3: LET al=2.5
-10 DATA -1,1,1, 1,1,1, 1,-1,1, -1,-1,1, -1,1,-1, 1,1,-1, 1,-1,-1, -1,-1,-1
-20 DATA 2,1,4,3, 5,6,7,8, 1,2,6,5, 3,4,8,7, 6,2,3,7, 1,5,8,4
-25 LET ca=COS(al): LET sa=SIN(al): RESTORE 10
-30 DIM v(8,3): DIM f(6,4): DIM w(4,2)
-40 FOR i=1 TO 8: READ v(i,1),v(i,2),v(i,3): NEXT i
-50 FOR i=1 TO 6: READ f(i,1),f(i,2),f(i,3),f(i,4): NEXT i
-55 CLS
-60 FOR i=1 TO 6
-65 FOR j=1 TO 4
-70 LET x=v(f(i,j),1): LET y=v(f(i,j),2): LET z=v(f(i,j),3)
-73 LET x2=x*ca-z*sa: LET z2=z*ca+x*sa
-75 LET x=cx+x2: LET y=cy+y: LET z=cz+z2
-80 LET w(j,1)=128+h*x/z: LET w(j,2)=140+h*y/z
-100 NEXT j
-110 FOR j=1 TO 4
-120 LET ABx=w(2,1)-w(1,1): LET ABy=w(2,2)-w(1,2)
-130 LET ACx=w(3,1)-w(1,1): LET ACy=w(3,2)-w(1,2)
-140 IF ACx*ABy<ACy*ABx THEN GO TO 170
-150 LET n=j+1: IF n=5 THEN LET n=1
-160 PLOT w(j,1), w(j,2): DRAW w(n,1)-w(j,1),w(n,2)-w(j,2)
-170 NEXT j
-180 NEXT i
-190 PAUSE 50
-200 LET al=al+1: GO TO 25
+10 LET h=75
+20 LET cx=0: LET cy=-1.2: LET cz=3.5
+30 LET al=0.5
+40 DATA -1,1,1, 1,1,1, 1,-1,1, -1,-1,1, -1,1,-1, 1,1,-1, 1,-1,-1, -1,-1,-1
+50 DATA 2,1,4,3, 5,6,7,8, 1,2,6,5, 3,4,8,7, 6,2,3,7, 1,5,8,4
+60 DIM v(8,3): DIM f(6,4): DIM w(8,2)
+70 FOR i=1 TO 8: READ v(i,1),v(i,2),v(i,3): NEXT i
+80 FOR i=1 TO 6: READ f(i,1),f(i,2),f(i,3),f(i,4): NEXT i
+90 LET ca=COS(al): LET sa=SIN(al)
+100 FOR i=1 TO 8
+110 LET x=cx + v(i,1)*ca - v(i,3)*sa
+120 LET y=cy + v(i,2)
+130 LET z=cz + v(i,3)*ca + v(i,1)*sa
+140 LET w(i,1)=128 + h*x/z
+150 LET w(i,2)=88 + h*y/z
+160 NEXT i
+165 CLS
+170 FOR i=1 TO 6
+180 LET f1=f(i,1): LET f2=f(i,2): LET f3=f(i,3): LET f4=f(i,4)
+190 LET ABx=w(f2,1)-w(f1,1)
+200 LET ABy=w(f2,2)-w(f1,2)
+210 IF (w(f3,1)-w(f1,1))*ABy < (w(f3,2)-w(f1,2))*ABx THEN GO TO 270
+220 PLOT w(f1,1), w(f1,2)
+230 DRAW ABx,ABy
+240 DRAW w(f3,1)-w(f2,1),w(f3,2)-w(f2,2)
+250 DRAW w(f4,1)-w(f3,1),w(f4,2)-w(f3,2)
+260 DRAW w(f1,1)-w(f4,1),w(f1,2)-w(f4,2)
+270 NEXT i
+280 LET al = al + 0.1
+290 GO TO 90
