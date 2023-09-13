@@ -56,11 +56,19 @@ void Z80Spectrum::loadrom(const char* filename, int bank) {
     FILE* fp = fopen(filename, "rb");
     if (fp == NULL) { printf("ROM %s not exists\n", filename); exit(1); }
 
+    // Затирать весь ROM старый, если он там был
     if (bank < 4) {
-        fread(rom + 16384*bank, 1, 16384, fp);
+
+        int off = 16384*bank;
+        for (int i = 0; i < 16384; i++) rom[off + i] = 0;
+        fread(rom + off, 1, 16384, fp);
+
     } else {
+
+        for (int i = 0; i < 16384; i++) trdos[i] = 0;
         fread(trdos, 1, 16384, fp);
     }
+
     fclose(fp);
 }
 
