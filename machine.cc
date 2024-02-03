@@ -48,8 +48,7 @@ void Z80Spectrum::main() {
             }
 
             // Вычисление разности времени
-            ftime(&ms_clock);
-            int time_curr = ms_clock.millitm;
+            int time_curr = SDL_GetTicks();
             int time_diff = time_curr - ms_clock_old;
             if (time_diff < 0) time_diff += 1000;
 

@@ -43,3 +43,5 @@ mp4:
 # Скипать повторные кадры
 mp4skip:
 	./vmzx dizzy3.z80 -s -o - | $(FF1) - $(SCALE) $(FF2) record.mp4
+clean:
+	rm vmzx
